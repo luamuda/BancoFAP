@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Cadastro de Estudantes</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form-image">
+            <img src="img/undraw_sign_up_n6im.svg">
+        </div>
+        <div class="form"> 
+            <form action="#">
+                <div class="form-header">
+                    <div class="tittle">
+                        <h1>Cadastro de Estudantes</h1>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-box">
+                        <label for="matricula">Matrícula</label>
+                        <input id="matricula" type="text" name="matricula" placeholder="xxxxx" required>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="name">Nome</label>
+                        <input id="name" type="text" name="name" placeholder="Digite o nome do aluno" required>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="number1">1º nota</label>
+                        <input id="number1" type="text" name="number1" placeholder="Digite a primeira nota" required>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="number2">2º nota</label>
+                        <input id="number2" type="text" name="number2" placeholder="Digite a segunda nota" required>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="number3">3º nota</label>
+                        <input id="number3" type="text" name="number1" placeholder="Digite a terceira nota" required>
+                    </div>
+                </div>
+                <div class="cadastrar-button">
+                    <button><a type="submit" href="#">Cadastrar Aluno</a></button>
+
+                </div>
+                <div id="responseMessage"></div>
+    <script>
+        const studentForm = document.getElementById ("studentForm");
+        const responseMessage = document.getElementById ("responseMessage");
+
+        studentForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(studentForm);
+
+            try {
+                const response = await fetch("http://localhost:3000/cadastro", {
+                    method: "POST",
+                    body: JSON.stringify(Object.fromEntries(formData)),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                if (response.status === 201) {
+                    responseMessage.textContent = "Estudante cadastrado com sucesso!";
+                } else {
+                    responseMessage.textContent = "Erro no cadastro. Verifique os campos e tente novamente.";
+                }
+            } catch (error) {
+                console.error("Erro na solicitação:", error);
+                responseMessage.textContent = "Erro na solicitação.";
+            }
+        });
+    </script>
+</body>
+</html>
+            </form>
+        </div>
+    </div>
+   
